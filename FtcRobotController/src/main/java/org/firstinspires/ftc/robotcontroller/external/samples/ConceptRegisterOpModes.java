@@ -54,7 +54,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.*;
  *
  * Note:
  * Even though you are performing a manual Registration, you should set the Annotations on your classes so they
- * can be placed into the correct Driver Station OpMode list...	eg:
+ * can be placed into the correct Driver Station OpMode list...  eg:
  *
  * @Autonomous(name="DriveAndScoreRed", group ="Red")
  * or
@@ -67,41 +67,45 @@ import org.firstinspires.ftc.robotcontroller.external.samples.*;
 public class ConceptRegisterOpModes
 {
 
-	@OpModeRegistrar
-	public static void registerMyOpModes(OpModeManager manager) {
-		// Un-comment any line to enable that sample.
-		// Or add your own lines to register your Team opmodes.
+  @OpModeRegistrar
+  public static void registerMyOpModes(OpModeManager manager) {
+    // Un-comment any line to enable that sample.
+    // Or add your own lines to register your Team opmodes.
 
-		// Basic Templates
-		// manager.register("Iterative Opmode",			 TemplateOpMode_Iterative.class);
-		// manager.register("Linear Opmode",					TemplateOpMode_Linear.class);
+    // Basic Templates
+    // manager.register("Iterative Opmode",       TemplateOpMode_Iterative.class);
+    // manager.register("Linear Opmode",          TemplateOpMode_Linear.class);
 
-		// Driving Samples
-		// manager.register("Teleop POV",						 PushbotTeleopPOV_Linear.class);
-		// manager.register("Teleop Tank",						PushbotTeleopTank_Iterative.class);
-		// manager.register("Auto Drive Encoder",		 PushbotAutoDriveByEncoder_Linear.class);
-		// manager.register("Auto Drive Time",				PushbotAutoDriveByTime_Linear.class);
-		// manager.register("Auto Drive Line",				PushbotAutoDriveToLine_Linear.class);
-		// manager.register("K9 Telop",							 K9botTeleopTank_Linear.class);
+    // Driving Samples
+    // manager.register("Teleop POV",             PushbotTeleopPOV_Linear.class);
+    // manager.register("Teleop Tank",            PushbotTeleopTank_Iterative.class);
+    // manager.register("Auto Drive Gyro",        PushbotAutoDriveByGyro_Linear.class);
+    // manager.register("Auto Drive Encoder",     PushbotAutoDriveByEncoder_Linear.class);
+    // manager.register("Auto Drive Time",        PushbotAutoDriveByTime_Linear.class);
+    // manager.register("Auto Drive Line",        PushbotAutoDriveToLine_Linear.class);
+    // manager.register("K9 Telop",               K9botTeleopTank_Linear.class);
 
-		// Sensor Samples
-		// manager.register("AdaFruit Color",				 SensorAdafruitRGB.class);
-		// manager.register("HT Color",							 SensorHTColor.class);
-		// manager.register("LEGO Light",						 SensorLEGOLight.class);
-		// manager.register("LEGO Touch",						 SensorLEGOTouch.class);
-		// manager.register("MR Color",							 SensorMRColor.class);
-		// manager.register("MR Gyro",								SensorMRGyro.class);
-		// manager.register("MR IR Seeker",					 SensorMRIrSeeker.class);
-		// manager.register("MR ODS",								 SensorMROpticalDistance.class);
+    // Sensor Samples
+    // manager.register("AdaFruit IMU",           SensorAdafruitIMU.class);
+    // manager.register("AdaFruit IMU Cal",       SensorAdafruitIMUCalibration.class);
+    // manager.register("AdaFruit Color",         SensorAdafruitRGB.class);
+    // manager.register("DIM DIO",                SensorDIO.class);
+    // manager.register("HT Color",               SensorHTColor.class);
+    // manager.register("LEGO Light",             SensorLEGOLight.class);
+    // manager.register("LEGO Touch",             SensorLEGOTouch.class);
+    // manager.register("MR Color",               SensorMRColor.class);
+    // manager.register("MR Gyro",                SensorMRGyro.class);
+    // manager.register("MR IR Seeker",           SensorMRIrSeeker.class);
+    // manager.register("MR ODS",                 SensorMROpticalDistance.class);
 
-		//	Concept Samples
-		// manager.register("Null Op",								ConceptNullOp.class);
-		// manager.register("Compass Calibration",		ConceptCompassCalibration.class);
-		// manager.register("DIM as Indicator",			 ConceptDIMAsIndicator.class);
-		// manager.register("I2C Address Change",		 ConceptI2cAddressChange.class);
-		// manager.register("Ramp Motor Speed",			 ConceptRampMotorSpeed.class);
-		// manager.register("Scan Servo",						 ConceptScanServo.class);
-		// manager.register("Telemetry",							ConceptTelemetry.class);
-		// manager.register("Vuforia Navigation",		 ConceptVuforiaNavigation.class);
-	}
+    //  Concept Samples
+    // manager.register("Null Op",                ConceptNullOp.class);
+    // manager.register("Compass Calibration",    ConceptCompassCalibration.class);
+    // manager.register("DIM as Indicator",       ConceptDIMAsIndicator.class);
+    // manager.register("I2C Address Change",     ConceptI2cAddressChange.class);
+    // manager.register("Ramp Motor Speed",       ConceptRampMotorSpeed.class);
+    // manager.register("Scan Servo",             ConceptScanServo.class);
+    // manager.register("Telemetry",              ConceptTelemetry.class);
+    // manager.register("Vuforia Navigation",     ConceptVuforiaNavigation.class);
+  }
 }
