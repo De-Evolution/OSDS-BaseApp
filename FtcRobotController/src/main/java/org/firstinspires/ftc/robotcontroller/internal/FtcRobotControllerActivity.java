@@ -329,7 +329,7 @@ public class FtcRobotControllerActivity extends Activity {
 
 		unbindFromService();
 		wifiLock.release();
-		RobotLog.cancelWriteLogcatToDisk(this);
+		RobotLog.cancelWriteLogcatToDisk();
 	}
 
 	protected void bindToService() {
