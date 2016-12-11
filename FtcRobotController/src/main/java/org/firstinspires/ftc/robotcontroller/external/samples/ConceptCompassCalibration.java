@@ -45,13 +45,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * It uses the common Pushbot hardware class to define the drive on the robot.
  * The code is structured as a LinearOpMode
  *
- *   This code assumes there is a compass configured with the name "compass"
+ *	 This code assumes there is a compass configured with the name "compass"
  *
- *   This code will put the compass into calibration mode, wait three seconds and then attempt
- *   to rotate two full turns clockwise.  This will allow the compass to do a magnetic calibration.
+ *	 This code will put the compass into calibration mode, wait three seconds and then attempt
+ *	 to rotate two full turns clockwise.	This will allow the compass to do a magnetic calibration.
  *
- *   Once compete, the program will put the compass back into measurement mode and check to see if the
- *   calibration was successful.
+ *	 Once compete, the program will put the compass back into measurement mode and check to see if the
+ *	 calibration was successful.
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
@@ -61,68 +61,68 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Disabled
 public class ConceptCompassCalibration extends LinearOpMode {
 
-    /* Declare OpMode members. */
-    HardwarePushbot     robot   = new HardwarePushbot();   // Use a Pushbot's hardware
-    private ElapsedTime runtime = new ElapsedTime();
-    CompassSensor       compass;
+		/* Declare OpMode members. */
+		HardwarePushbot		 robot	 = new HardwarePushbot();	 // Use a Pushbot's hardware
+		private ElapsedTime runtime = new ElapsedTime();
+		CompassSensor			 compass;
 
-    final static double     MOTOR_POWER   = 0.2; // scale from 0 to 1
-    static final long       HOLD_TIME_MS  = 3000;
-    static final double     CAL_TIME_SEC  = 20;
+		final static double		 MOTOR_POWER	 = 0.2; // scale from 0 to 1
+		static final long			 HOLD_TIME_MS	= 3000;
+		static final double		 CAL_TIME_SEC	= 20;
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+		@Override
+		public void runOpMode() throws InterruptedException {
 
-        /* Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
+				/* Initialize the drive system variables.
+				 * The init() method of the hardware class does all the work here
+				 */
+				robot.init(hardwareMap);
 
-        // get a reference to our Compass Sensor object.
-        compass = hardwareMap.compassSensor.get("compass");
+				// get a reference to our Compass Sensor object.
+				compass = hardwareMap.compassSensor.get("compass");
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to cal");    //
-        telemetry.update();
+				// Send telemetry message to signify robot waiting;
+				telemetry.addData("Status", "Ready to cal");		//
+				telemetry.update();
 
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
+				// Wait for the game to start (driver presses PLAY)
+				waitForStart();
 
-        // Set the compass to calibration mode
-        compass.setMode(CompassSensor.CompassMode.CALIBRATION_MODE);
-        telemetry.addData("Compass", "Compass in calibration mode");
-        telemetry.update();
+				// Set the compass to calibration mode
+				compass.setMode(CompassSensor.CompassMode.CALIBRATION_MODE);
+				telemetry.addData("Compass", "Compass in calibration mode");
+				telemetry.update();
 
-        sleep(HOLD_TIME_MS);  // Just do a sleep while we switch modes
+				sleep(HOLD_TIME_MS);	// Just do a sleep while we switch modes
 
-        // Start the robot rotating clockwise
-        telemetry.addData("Compass", "Calibration mode. Turning the robot...");
-        telemetry.update();
-        robot.leftMotor.setPower(MOTOR_POWER);
-        robot.rightMotor.setPower(-MOTOR_POWER);
+				// Start the robot rotating clockwise
+				telemetry.addData("Compass", "Calibration mode. Turning the robot...");
+				telemetry.update();
+				robot.leftMotor.setPower(MOTOR_POWER);
+				robot.rightMotor.setPower(-MOTOR_POWER);
 
-        // run until time expires OR the driver presses STOP;
-        runtime.reset();
-        while (opModeIsActive() && (runtime.time() < CAL_TIME_SEC)) {
+				// run until time expires OR the driver presses STOP;
+				runtime.reset();
+				while (opModeIsActive() && (runtime.time() < CAL_TIME_SEC)) {
 
-            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-        }
+						idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+				}
 
-        // Stop all motors and turn off claibration
-        robot.leftMotor.setPower(0);
-        robot.rightMotor.setPower(0);
-        compass.setMode(CompassSensor.CompassMode.MEASUREMENT_MODE);
-        telemetry.addData("Compass", "Returning to measurement mode");
-        telemetry.update();
+				// Stop all motors and turn off claibration
+				robot.leftMotor.setPower(0);
+				robot.rightMotor.setPower(0);
+				compass.setMode(CompassSensor.CompassMode.MEASUREMENT_MODE);
+				telemetry.addData("Compass", "Returning to measurement mode");
+				telemetry.update();
 
-        sleep(HOLD_TIME_MS);  // Just do a sleep while we switch modes
+				sleep(HOLD_TIME_MS);	// Just do a sleep while we switch modes
 
-        // Report whether the Calibration was successful or not.
-        if (compass.calibrationFailed())
-            telemetry.addData("Compass", "Calibrate Failed. Try Again!");
-        else
-            telemetry.addData("Compass", "Calibrate Passed.");
-        telemetry.update();
+				// Report whether the Calibration was successful or not.
+				if (compass.calibrationFailed())
+						telemetry.addData("Compass", "Calibrate Failed. Try Again!");
+				else
+						telemetry.addData("Compass", "Calibrate Passed.");
+				telemetry.update();
 
-    }
+		}
 }

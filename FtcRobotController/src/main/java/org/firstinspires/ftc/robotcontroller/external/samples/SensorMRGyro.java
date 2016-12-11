@@ -51,51 +51,51 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 @Disabled
 public class SensorMRGyro extends LinearOpMode {
 
-  @Override
-  public void runOpMode() throws InterruptedException {
+	@Override
+	public void runOpMode() throws InterruptedException {
 
-    GyroSensor gyro;    // Hardware Device Object
-    int xVal, yVal, zVal = 0; // Gyro rate Values
-    int heading = 0;          // Gyro integrated heading
+		GyroSensor gyro;		// Hardware Device Object
+		int xVal, yVal, zVal = 0; // Gyro rate Values
+		int heading = 0;					// Gyro integrated heading
 
-    // get a reference to our GyroSensor object.
-    gyro = hardwareMap.gyroSensor.get("gyro");
+		// get a reference to our GyroSensor object.
+		gyro = hardwareMap.gyroSensor.get("gyro");
 
-    // start calibrating the gyro.
-    gyro.calibrate();
+		// start calibrating the gyro.
+		gyro.calibrate();
 
-    // make sure the gyro is calibrated.
-    while (gyro.isCalibrating())  {
-      Thread.sleep(50);
-    }
+		// make sure the gyro is calibrated.
+		while (gyro.isCalibrating())	{
+			Thread.sleep(50);
+		}
 
-    // wait for the start button to be pressed.
-    waitForStart();
+		// wait for the start button to be pressed.
+		waitForStart();
 
-    while (opModeIsActive())  {
-      // if the A and B buttons are pressed, reset Z heading.
-      if(gamepad1.a && gamepad1.b)  {
-        // reset heading.
-        gyro.resetZAxisIntegrator();
-      }
+		while (opModeIsActive())	{
+			// if the A and B buttons are pressed, reset Z heading.
+			if(gamepad1.a && gamepad1.b)	{
+				// reset heading.
+				gyro.resetZAxisIntegrator();
+			}
 
-      // get the x, y, and z values (rate of change of angle).
-      xVal = gyro.rawX();
-      yVal = gyro.rawY();
-      zVal = gyro.rawZ();
+			// get the x, y, and z values (rate of change of angle).
+			xVal = gyro.rawX();
+			yVal = gyro.rawY();
+			zVal = gyro.rawZ();
 
-      // get the heading info.
-      // the Modern Robotics' gyro sensor keeps
-      // track of the current heading for the Z axis only.
-      heading = gyro.getHeading();
+			// get the heading info.
+			// the Modern Robotics' gyro sensor keeps
+			// track of the current heading for the Z axis only.
+			heading = gyro.getHeading();
 
-      telemetry.addData("1. x", "%03d", xVal);
-      telemetry.addData("2. y", "%03d", yVal);
-      telemetry.addData("3. z", "%03d", zVal);
-      telemetry.addData("4. h", "%03d", heading);
+			telemetry.addData("1. x", "%03d", xVal);
+			telemetry.addData("2. y", "%03d", yVal);
+			telemetry.addData("3. z", "%03d", zVal);
+			telemetry.addData("4. h", "%03d", heading);
 
-      telemetry.update();
-      idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-    }
-  }
+			telemetry.update();
+			idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+		}
+	}
 }

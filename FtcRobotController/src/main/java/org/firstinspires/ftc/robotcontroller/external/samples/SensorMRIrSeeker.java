@@ -45,7 +45,7 @@ import com.qualcomm.robotcore.hardware.IrSeekerSensor;
  * The op mode assumes that the IR Seeker
  * is configured with a name of "ir seeker".
  *
- * Set the switch on the Modern Robotics IR beacon to 1200 at 180.  <br>
+ * Set the switch on the Modern Robotics IR beacon to 1200 at 180.	<br>
  * Turn on the IR beacon.
  * Make sure the side of the beacon with the LED on is facing the robot. <br>
  *
@@ -56,34 +56,34 @@ import com.qualcomm.robotcore.hardware.IrSeekerSensor;
 @Disabled
 public class SensorMRIrSeeker extends LinearOpMode {
 
-  @Override
-  public void runOpMode() throws InterruptedException {
+	@Override
+	public void runOpMode() throws InterruptedException {
 
-    IrSeekerSensor irSeeker;    // Hardware Device Object
+		IrSeekerSensor irSeeker;		// Hardware Device Object
 
-    // get a reference to our GyroSensor object.
-    irSeeker = hardwareMap.irSeekerSensor.get("seeker");
+		// get a reference to our GyroSensor object.
+		irSeeker = hardwareMap.irSeekerSensor.get("seeker");
 
-    // wait for the start button to be pressed.
-    waitForStart();
+		// wait for the start button to be pressed.
+		waitForStart();
 
-    while (opModeIsActive())  {
+		while (opModeIsActive())	{
 
-      // Ensure we have a IR signal
-      if (irSeeker.signalDetected())
-      {
-        // Display angle and strength
-        telemetry.addData("Angle",    irSeeker.getAngle());
-        telemetry.addData("Strength", irSeeker.getStrength());
-      }
-      else
-      {
-        // Display loss of signal
-        telemetry.addData("Seeker", "Signal Lost");
-      }
+			// Ensure we have a IR signal
+			if (irSeeker.signalDetected())
+			{
+				// Display angle and strength
+				telemetry.addData("Angle",		irSeeker.getAngle());
+				telemetry.addData("Strength", irSeeker.getStrength());
+			}
+			else
+			{
+				// Display loss of signal
+				telemetry.addData("Seeker", "Signal Lost");
+			}
 
-      telemetry.update();
-      idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-    }
-  }
+			telemetry.update();
+			idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+		}
+	}
 }

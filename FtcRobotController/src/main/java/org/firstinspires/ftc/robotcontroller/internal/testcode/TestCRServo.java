@@ -43,21 +43,21 @@ import com.qualcomm.robotcore.hardware.CRServo;
 @Autonomous(name="Test CR Servo", group ="Tests")
 @Disabled
 public class TestCRServo extends LinearOpMode
-    {
-    @Override
-    public void runOpMode() throws InterruptedException
-        {
-        CRServo servo = this.hardwareMap.crservo.get("crservo");
+		{
+		@Override
+		public void runOpMode() throws InterruptedException
+				{
+				CRServo servo = this.hardwareMap.crservo.get("crservo");
 
-        waitForStart();
+				waitForStart();
 
-        servo.setPower(1.0);
-        Thread.sleep(4000);
+				servo.setPower(1.0);
+				Thread.sleep(4000);
 
-        servo.setPower(0.0);
-        Thread.sleep(1000);
+				servo.setPower(0.0);
+				Thread.sleep(1000);
 
-        servo.setPower(-1.0);
-        Thread.sleep(4000);
-        }
-    }
+				servo.setPower(-1.0);
+				Thread.sleep(4000);
+				}
+		}

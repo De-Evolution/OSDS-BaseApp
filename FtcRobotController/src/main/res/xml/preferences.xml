@@ -49,6 +49,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         android:targetPackage="com.qualcomm.ftccommon"
         android:targetClass="com.qualcomm.ftccommon.FtcWifiChannelSelectorActivity" />
     </PreferenceScreen>
+    <PreferenceScreen
+      android:title="@string/pref_change_wifi_channel_root"
+      android:key="@string/pref_launch_settings"
+      android:summary="@string/pref_desc_wifi_channel_root">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:targetPackage="com.qualcomm.ftcrobotcontroller"
+        android:targetClass="org.firstinspires.ftc.robotcontroller.internal.channelchanger.RootWifiChannelSelectorActivity" />
+    </PreferenceScreen>
   </PreferenceCategory>
 
   <PreferenceCategory

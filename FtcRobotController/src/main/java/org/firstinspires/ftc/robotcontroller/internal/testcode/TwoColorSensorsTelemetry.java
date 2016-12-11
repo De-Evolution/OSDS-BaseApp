@@ -45,36 +45,36 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous(name="Test Two Color Sensors", group ="Tests")
 @Disabled
 public class TwoColorSensorsTelemetry extends LinearOpMode
-    {
-    AMSColorSensor leftColorSensor;
-    AMSColorSensor rightColorSensor;
+		{
+		AMSColorSensor leftColorSensor;
+		AMSColorSensor rightColorSensor;
 
-    @Override
-    public void runOpMode() throws InterruptedException
-        {
-        leftColorSensor  = (AMSColorSensor)hardwareMap.colorSensor.get("leftColorSensor");
-        rightColorSensor = (AMSColorSensor)hardwareMap.colorSensor.get("rightColorSensor");
+		@Override
+		public void runOpMode() throws InterruptedException
+				{
+				leftColorSensor	= (AMSColorSensor)hardwareMap.colorSensor.get("leftColorSensor");
+				rightColorSensor = (AMSColorSensor)hardwareMap.colorSensor.get("rightColorSensor");
 
-        AMSColorSensor.Parameters params = leftColorSensor.getParameters();
-        // possibly change some (notably gain and / or integration time), then
-        // leftColorSensor.initialize(params);
+				AMSColorSensor.Parameters params = leftColorSensor.getParameters();
+				// possibly change some (notably gain and / or integration time), then
+				// leftColorSensor.initialize(params);
 
-        params = rightColorSensor.getParameters();
-        // possibly change some (notably gain and / or integration time), then
-        // rightColorSensor.initialize(params);
+				params = rightColorSensor.getParameters();
+				// possibly change some (notably gain and / or integration time), then
+				// rightColorSensor.initialize(params);
 
-        waitForStart();
+				waitForStart();
 
-        while (opModeIsActive())
-            {
-            int left = leftColorSensor.argb();
-            int right = rightColorSensor.argb();
-            telemetry.addData("left", String.format("a=%d r=%d g=%d b=%d", Color.alpha(left), Color.red(left), Color.green(left), Color.blue(left)));
-            telemetry.addData("right", String.format("a=%d r=%d g=%d b=%d", Color.alpha(right), Color.red(right), Color.green(right), Color.blue(right)));
-            this.updateTelemetry(telemetry);
+				while (opModeIsActive())
+						{
+						int left = leftColorSensor.argb();
+						int right = rightColorSensor.argb();
+						telemetry.addData("left", String.format("a=%d r=%d g=%d b=%d", Color.alpha(left), Color.red(left), Color.green(left), Color.blue(left)));
+						telemetry.addData("right", String.format("a=%d r=%d g=%d b=%d", Color.alpha(right), Color.red(right), Color.green(right), Color.blue(right)));
+						this.updateTelemetry(telemetry);
 
-            Thread.sleep(500);
-            }
+						Thread.sleep(500);
+						}
 
-        }
-    }
+				}
+		}

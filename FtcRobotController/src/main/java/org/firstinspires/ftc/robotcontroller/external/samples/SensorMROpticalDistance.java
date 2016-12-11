@@ -48,27 +48,27 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 @Disabled
 public class SensorMROpticalDistance extends LinearOpMode {
 
-  OpticalDistanceSensor odsSensor;  // Hardware Device Object
+	OpticalDistanceSensor odsSensor;	// Hardware Device Object
 
-  @Override
-  public void runOpMode() throws InterruptedException {
+	@Override
+	public void runOpMode() throws InterruptedException {
 
-    // get a reference to our Light Sensor object.
-    odsSensor = hardwareMap.opticalDistanceSensor.get("ods");
+		// get a reference to our Light Sensor object.
+		odsSensor = hardwareMap.opticalDistanceSensor.get("ods");
 
-    // wait for the start button to be pressed.
-    waitForStart();
+		// wait for the start button to be pressed.
+		waitForStart();
 
-    // while the op mode is active, loop and read the light levels.
-    // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
-    while (opModeIsActive()) {
+		// while the op mode is active, loop and read the light levels.
+		// Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+		while (opModeIsActive()) {
 
-      // send the info back to driver station using telemetry function.
-      telemetry.addData("Raw",    odsSensor.getRawLightDetected());
-      telemetry.addData("Normal", odsSensor.getLightDetected());
+			// send the info back to driver station using telemetry function.
+			telemetry.addData("Raw",		odsSensor.getRawLightDetected());
+			telemetry.addData("Normal", odsSensor.getLightDetected());
 
-      telemetry.update();
-      idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-    }
-  }
+			telemetry.update();
+			idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
+		}
+	}
 }

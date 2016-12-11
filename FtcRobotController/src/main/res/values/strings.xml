@@ -38,23 +38,51 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <resources>
 
-  <string name="app_name">FTC Robot Controller</string>
+    <string name="app_name">FTC Robot Controller</string>
 
-  <!-- Menu -->
-  <string name="inspection_mode_menu_item">Self Inspect</string>
-  <string name="programming_mode_menu_item">Programming Mode</string>
-  <string name="blocks_menu_item">Blocks</string>
-  <string name="settings_menu_item">Settings</string>
-  <string name="restart_robot_menu_item">Restart Robot</string>
-  <string name="configure_robot_menu_item">Configure Robot</string>
-  <string name="about_menu_item">About</string>
-  <string name="exit_menu_item">Exit</string>
+    <!-- Menu -->
+    <string name="inspection_mode_menu_item">Self Inspect</string>
+    <string name="programming_mode_menu_item">Programming Mode</string>
+    <string name="blocks_menu_item">Blocks</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="restart_robot_menu_item">Restart Robot</string>
+    <string name="configure_robot_menu_item">Configure Robot</string>
+    <string name="about_menu_item">About</string>
+    <string name="exit_menu_item">Exit</string>
 
-  <!-- Preferences -->
-  <string name="pref_view_logs">View Logs</string>
+    <!-- Preferences -->
+	<string name="pref_launch_settings">pref_launch_settings</string>
+	<string name="pref_launch_viewlogs">pref_launch_view_logs</string>
+	<string name="pref_launch_root_channelchanger">pref_launch_root_channelchanger</string>
+	<string name="pref_view_logs">View Logs</string>
+	<string name="pref_change_wifi_channel">Change Wifi Channel</string>
+	<string name="pref_change_wifi_channel_root">Change Wifi Channel (Universal)</string>
+	<string name="pref_desc_wifi_channel_root">Original wifi channel changer from the beta.  Works on any device, as long as it is rooted.</string>
+	<string name="pref_configure_robot_title">Robot Configuration</string>
+    <!-- Toast messages -->
+    <string name="toastWifiConfigurationComplete">Configuration Complete</string>
+    <string name="toastRestartingRobot">Restarting Robot</string>
 
-  <!-- Toast messages -->  
-  <string name="toastWifiConfigurationComplete">Configuration Complete</string>
-  <string name="toastRestartingRobot">Restarting Robot</string>
+    <!-- Wifi Channel Selector -->
+    <string-array name="wifi_direct_channels">
+        <item>SELECT A CHANNEL</item>
+        <item>Class 81 Channel 1</item>
+        <item>Class 81 Channel 6</item>
+        <item>Class 81 Channel 11</item>
+        <!--
+        <item>Class 115 Channel 36</item>
+        <item>Class 115 Channel 40</item>
+        <item>Class 115 Channel 44</item>
+        <item>Class 115 Channel 48</item>
+        -->
+        <item>Class 124 Channel 149</item>
+        <item>Class 124 Channel 153</item>
+        <item>Class 124 Channel 157</item>
+        <item>Class 124 Channel 161</item>
+    </string-array>
+    <string name="channel_change_explanation">Changing channels requires root access.</string>
+    <string name="set_wd_channel">Configure WiFi Direct</string>
+    <string name="launch_wifi_settings">Launch WiFi Settings</string>
+
 
 </resources>

@@ -21,8 +21,12 @@ apply plugin: 'com.android.application'
 
 android {
 
+    repositories {
+        maven { url 'http://repo1.maven.org/maven2' }
+    }
+
     compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '23.0.1'
 
     signingConfigs {
         debug {

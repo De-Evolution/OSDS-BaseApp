@@ -1,11 +1,12 @@
-import java.util.regex.Pattern
-
 //
 // build.gradle in FtcRobotController
 //
 apply plugin: 'com.android.library'
-
 android {
+
+    repositories {
+        maven { url 'http://repo1.maven.org/maven2' }
+    }
 
     defaultConfig {
         minSdkVersion 19
@@ -13,17 +14,19 @@ android {
     }
 
     compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '23.0.1'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
 }
-
 repositories {
     flatDir {
         dirs '../libs'
     }
 }
-
 apply from: 'build.release.gradle'
+
+dependencies {
+    compile project(':libsuperuser')
+}
