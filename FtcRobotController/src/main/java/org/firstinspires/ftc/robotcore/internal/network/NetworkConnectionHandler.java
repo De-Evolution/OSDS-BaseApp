@@ -145,8 +145,9 @@ public class NetworkConnectionHandler {
 		this.networkConnection.connect(this.connectionOwner, this.connectionOwnerPassword);
 	}
 
-	public boolean connectedWithUnexpectedDevice() {
-		if(this.connectionOwner != null && !this.connectionOwner.equals(this.networkConnection.getConnectionOwnerMacAddress())) {
+	public boolean connectedWithUnexpectedDevice()
+	{
+		if(this.connectionOwner != null && networkConnection.getConnectionOwnerMacAddress() != null && (!this.connectionOwner.equals(this.networkConnection.getConnectionOwnerMacAddress()))) {
 			RobotLog.ee("NetworkConnectionHandler", "Network Connection - connected to " + this.networkConnection.getConnectionOwnerMacAddress() + ", expected " + this.connectionOwner);
 			return true;
 		} else {

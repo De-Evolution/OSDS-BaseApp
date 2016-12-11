@@ -63,7 +63,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       android:textColor="@color/white"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:padding="8dp"
-      android:textStyle="bold"/>
+      android:textStyle="bold"
+      android:text="Device Omega-13"/>
 
     <ImageButton
       android:id="@+id/menu_buttons"
@@ -99,24 +100,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       android:id="@+id/textNetworkConnectionStatus"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:visibility="invisible"
-      android:text="" />
+      android:text="Network Connection: disconnected" />
 
     <TextView
       android:id="@+id/textRobotStatus"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/textNetworkConnectionStatus"
-      android:visibility="invisible"
-      android:text="" />
+      android:text="Robot Status: Foo" />
 
     <TextView
       android:id="@+id/textOpMode"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/textRobotStatus"
-      android:visibility="invisible"
-      android:text="" />
+      android:text="Current Op Mode: XXX" />
+
+    <TextView
+        android:id="@+id/textConnectionType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textOpMode"
+        android:text="Connection Type: LAN" />
 
     <FrameLayout
       android:layout_width="match_parent"

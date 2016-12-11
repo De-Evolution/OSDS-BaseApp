@@ -37,6 +37,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -81,29 +82,28 @@ import com.qualcomm.robotcore.hardware.configuration.Utility;
 import com.qualcomm.robotcore.robocol.PeerAppRobotController;
 import com.qualcomm.robotcore.util.Dimmer;
 import com.qualcomm.robotcore.util.ImmersiveMode;
-import com.qualcomm.robotcore.util.ReadWriteFile;
 import com.qualcomm.robotcore.util.RobotLog;
+import com.qualcomm.robotcore.wifi.NetworkConnection;
 import com.qualcomm.robotcore.wifi.NetworkConnectionFactory;
 import com.qualcomm.robotcore.wifi.NetworkType;
-import com.qualcomm.robotcore.wifi.WifiDirectAssistant;
 
 import org.firstinspires.ftc.ftccommon.external.SoundPlayingRobotMonitor;
 import org.firstinspires.ftc.robotcore.internal.AppUtil;
 import org.firstinspires.inspection.RcInspectionActivity;
 
-import java.io.File;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class FtcRobotControllerActivity extends Activity {
+public class FtcRobotControllerActivity extends Activity
+{
 
 	public static final String TAG = "RCActivity";
 
-	private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
+	private static final int REQUEST_CONFIG_WIFI_CHANNEL = 87;
+	private static final int REQUEST_APP_SETTINGS = 93;
+
 	private static final boolean USE_DEVICE_EMULATION = false;
 	private static final int NUM_GAMEPADS = 2;
-
-	public static final String NETWORK_TYPE_FILENAME = "ftc-network-type.txt";
 
 	protected WifiManager.WifiLock wifiLock;
 	protected RobotConfigFileManager cfgFileMgr;
@@ -122,6 +122,7 @@ public class FtcRobotControllerActivity extends Activity {
 	protected TextView[] textGamepad = new TextView[NUM_GAMEPADS];
 	protected TextView textOpMode;
 	protected TextView textErrorMessage;
+	protected TextView textConnectionType;
 	protected ImmersiveMode immersion;
 
 	protected UpdateUI updateUI;
@@ -133,6 +134,8 @@ public class FtcRobotControllerActivity extends Activity {
 
 	protected FtcEventLoop eventLoop;
 	protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
+
+	protected SharedPreferences preferences;
 
 	protected class RobotRestarter implements Restarter {
 
@@ -203,6 +206,7 @@ public class FtcRobotControllerActivity extends Activity {
 
 		context = this;
 		utility = new Utility(this);
+
 		appUtil.setThisApp(new PeerAppRobotController(context));
 
 		entireScreenLayout = (LinearLayout) findViewById(R.id.entire_screen);
@@ -229,6 +233,7 @@ public class FtcRobotControllerActivity extends Activity {
 		textDeviceName = (TextView) findViewById(R.id.textDeviceName);
 		textNetworkConnectionStatus = (TextView) findViewById(R.id.textNetworkConnectionStatus);
 		textRobotStatus = (TextView) findViewById(R.id.textRobotStatus);
+		textConnectionType = (TextView) findViewById(R.id.textConnectionType);
 		textOpMode = (TextView) findViewById(R.id.textOpMode);
 		textErrorMessage = (TextView) findViewById(R.id.textErrorMessage);
 		textGamepad[0] = (TextView) findViewById(R.id.textGamepad1);
@@ -244,6 +249,7 @@ public class FtcRobotControllerActivity extends Activity {
 		callback = createUICallback(updateUI);
 
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "");
@@ -255,7 +261,8 @@ public class FtcRobotControllerActivity extends Activity {
 		// save 4MB of logcat to the SD card
 		RobotLog.writeLogcatToDisk(this, 4 * 1024);
 		wifiLock.acquire();
-		callback.networkConnectionUpdate(WifiDirectAssistant.Event.DISCONNECTED);
+		callback.networkConnectionUpdate(NetworkConnection.Event.DISCONNECTED);
+
 		bindToService();
 	}
 
@@ -296,7 +303,7 @@ public class FtcRobotControllerActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		RobotLog.vv(TAG, "onResume()");
-		readNetworkType(NETWORK_TYPE_FILENAME);
+
 	}
 
 	@Override
@@ -332,8 +339,9 @@ public class FtcRobotControllerActivity extends Activity {
 		RobotLog.cancelWriteLogcatToDisk();
 	}
 
-	protected void bindToService() {
-		readNetworkType(NETWORK_TYPE_FILENAME);
+	protected void bindToService()
+	{
+		readNetworkType();
 		Intent intent = new Intent(this, FtcRobotControllerService.class);
 		intent.putExtra(NetworkConnectionFactory.NETWORK_CONNECTION_TYPE, networkType);
 		bindService(intent, connection, Context.BIND_AUTO_CREATE);
@@ -345,30 +353,42 @@ public class FtcRobotControllerActivity extends Activity {
 		}
 	}
 
-	public void writeNetworkTypeFile(String fileName, String fileContents){
-		ReadWriteFile.writeFile(AppUtil.FIRST_FOLDER, fileName, fileContents);
-	}
 
-	protected void readNetworkType(String fileName) {
-		NetworkType defaultNetworkType;
-		File directory = RobotConfigFileManager.CONFIG_FILES_DIR;
-		File networkTypeFile = new File(directory, fileName);
-		if (!networkTypeFile.exists()) {
+	/**
+	 * Reads the network type from the system preferences and sets it in programmingModeController
+	 */
+	protected void readNetworkType()
+	{
+		//set default if necessary
+		if(!preferences.contains(getString(R.string.pref_connection_type)))
+		{
+			NetworkType defaultNetworkType;
+
 			if (Build.MODEL.equals(Device.MODEL_410C)) {
 				defaultNetworkType = NetworkType.SOFTAP;
 			} else {
 				defaultNetworkType = NetworkType.WIFIDIRECT;
 			}
-			writeNetworkTypeFile(NETWORK_TYPE_FILENAME, defaultNetworkType.toString());
+			preferences.edit().putString(getString(R.string.pref_connection_type), defaultNetworkType.name()).apply();
 		}
 
-		String fileContents = readFile(networkTypeFile);
-		networkType = NetworkConnectionFactory.getTypeFromString(fileContents);
-		programmingModeController.setCurrentNetworkType(networkType);
+		setNetworkType(NetworkType.fromString(preferences.getString(getString(R.string.pref_connection_type), "")));
 	}
 
-	private String readFile(File file) {
-		return ReadWriteFile.readFile(file);
+	protected void setNetworkType(NetworkType type)
+	{
+		networkType = type;
+		programmingModeController.setCurrentNetworkType(type);
+		textConnectionType.setText("Network Type: " + type.toString());
+	}
+
+	/**
+	 *
+	 * @return true if the network type in the preferences is different from the class variable
+	 */
+	protected boolean networkTypeChanged()
+	{
+		return !networkType.name().equals(preferences.getString(getString(R.string.pref_connection_type), ""));
 	}
 
 	@Override
@@ -428,7 +448,7 @@ public class FtcRobotControllerActivity extends Activity {
 		}
 		else if (id == R.id.action_settings) {
 			Intent settingsIntent = new Intent(FtcRobotControllerSettingsActivity.launchIntent);
-			startActivityForResult(settingsIntent, LaunchActivityConstantsList.FTC_CONFIGURE_REQUEST_CODE_ROBOT_CONTROLLER);
+			startActivityForResult(settingsIntent, REQUEST_APP_SETTINGS);
 			return true;
 		}
 		else if (id == R.id.action_about) {
@@ -461,6 +481,15 @@ public class FtcRobotControllerActivity extends Activity {
 		if (request == LaunchActivityConstantsList.FTC_CONFIGURE_REQUEST_CODE_ROBOT_CONTROLLER) {
 			// We always do a refresh, whether it was a cancel or an OK, for robustness
 			cfgFileMgr.getActiveConfigAndUpdateUI();
+		}
+		if(request == REQUEST_APP_SETTINGS)
+		{
+			if(networkTypeChanged())
+			{
+				readNetworkType();
+				unbindFromService();
+				bindToService();
+			}
 		}
 	}
 

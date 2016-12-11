@@ -59,14 +59,33 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<string name="pref_launch_settings">pref_launch_settings</string>
 	<string name="pref_launch_viewlogs">pref_launch_view_logs</string>
 	<string name="pref_launch_root_channelchanger">pref_launch_root_channelchanger</string>
+	<string name="pref_sound_on_off">pref_sound_on_off</string>
+	<string name="pref_connection_type">pref_connection_type</string>
 	<string name="pref_view_logs">View Logs</string>
 	<string name="pref_change_wifi_channel">Change Wifi Channel</string>
 	<string name="pref_change_wifi_channel_root">Change Wifi Channel (Universal)</string>
 	<string name="pref_desc_wifi_channel_root">Original wifi channel changer from the beta.  Works on any device, as long as it is rooted.</string>
 	<string name="pref_configure_robot_title">Robot Configuration</string>
 	<string name="pref_sound_on_off_title">Sound</string>
+	<string name="pref_connection_type_title">Connection Type</string>
+	<string name="pref_connection_type_summary">Controls the type of connection between the robot controller and driver station.</string>
 
-    <!-- Wifi Channel Selector -->
+	<!-- Connection Type Chooser -->
+	<string-array name="pref_connection_type_option_names">
+		<item>Wi-Fi Direct</item>
+		<item>Software Access Point</item>
+		<item>Local Area Network</item>
+	</string-array>
+
+	<!-- must match the NetworkType enum -->
+	<string-array name="pref_connection_type_options">
+		<item>WIFIDIRECT</item>
+		<item>SOFTAP</item>
+		<item>LAN</item>
+	</string-array>
+
+
+	<!-- Wifi Channel Selector -->
     <string-array name="wifi_direct_channels">
         <item>SELECT A CHANNEL</item>
         <item>Class 81 Channel 1</item>
